@@ -1,0 +1,7 @@
+{
+  "name": "vue3-contacts-ts",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
