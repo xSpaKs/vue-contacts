@@ -9,10 +9,6 @@ import DetailsContact from "@/views/DetailsContact.vue";
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
-        redirect: "/home",
-    },
-    {
-        path: "/home",
         name: "List",
         component: ListContact,
     },
