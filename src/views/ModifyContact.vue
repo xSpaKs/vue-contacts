@@ -13,6 +13,9 @@
                 <ion-label>Phone : </ion-label>
                 <ion-input v-model="phone" />
             </ion-item>
+            <ion-item v-for="error in errors" style="color: red">{{
+                error
+            }}</ion-item>
             <ion-button type="submit" expand="block"
                 >Confirm the modifications</ion-button
             >
@@ -29,6 +32,7 @@ export default {
             name: "",
             email: "",
             phone: "",
+            errors: "",
         };
     },
 
@@ -57,12 +61,32 @@ export default {
         },
 
         handleSubmit() {
-            this.$emit("modify-contact", {
-                id: this.id,
-                name: this.name,
-                email: this.email,
-                phone: this.phone,
-            });
+            this.errors = [];
+
+            const isValidName = this.name.trim() != "";
+            const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
+            const isValidPhone = /^0[1-9]\d{8}$/.test(this.phone);
+
+            if (!isValidName) {
+                this.errors.push("Name cannot be empty");
+            }
+
+            if (!isValidEmail) {
+                this.errors.push("Email is not valid");
+            }
+
+            if (!isValidPhone) {
+                this.errors.push("Phone number is not valid");
+            }
+
+            if (isValidName && isValidEmail && isValidPhone) {
+                this.$emit("modify-contact", {
+                    id: this.id,
+                    name: this.name,
+                    email: this.email,
+                    phone: this.phone,
+                });
+            }
         },
     },
 
